@@ -18,6 +18,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Box from "@mui/material/Box";
+import Badge from "@mui/material/Badge";
 
 import CartBottomBar from "@/components/user/CartBottomBar";
 
@@ -60,19 +61,52 @@ function CartItems() {
       JSON.stringify(totalQuantityCart)
     );
   }, [cartItems, totalQuantityCart]);
-  console.log(cartItems)
+  console.log(cartItems);
   return (
     <Box sx={{ minHeight: "100vh", marginBottom: "20%" }}>
       <Grid container spacing={3} padding={2}>
         {cartItems.map((product) => (
-          <Grid item xs={12} key={product.productId}>
+          <Grid
+            item
+            xs={12}
+            key={product.productId}
+            sx={{ position: "relative" }}
+          >
+            <Badge
+              badgeContent={
+                <IconButton
+                  variant="contained"
+                  color="error"
+                  size="small"
+                  sx={{
+                    backgroundColor: "error.light",
+                    "&:hover": {
+                      backgroundColor: "error.main",
+                    },
+                    width: "2rem",
+                    height: "2rem",
+                  }}
+                  onClick={() => handleRemove(product.productId)}
+                >
+                  <CloseIcon
+                    sx={{
+                      color: "black",
+                      "&:hover": {
+                        color: "white",
+                      },
+                      fontSize: 20,
+                    }}
+                  />
+                </IconButton>
+              }
+              sx={{
+                position: "absolute",
+                right: 0,
+              }}
+            />
             <Card sx={{ padding: "0.5rem" }} elevation={2}>
-              <Button
-                onClick={() => handleRemove(product.productId)}
-                sx={{ color: "black" }}
-              >
-                <CloseIcon /> Remove
-              </Button>
+              <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+              </Box>
               <Box
                 sx={{
                   display: "flex",
@@ -96,7 +130,7 @@ function CartItems() {
                     sx={{
                       width: 72,
                       height: 72,
-                      borderRadius: 1,
+                      borderRadius: "1rem",
                     }}
                   />
                   <CardContent
@@ -115,19 +149,25 @@ function CartItems() {
                 </Box>
 
                 {/* button */}
-                <Box sx={{ display: "flex", flexDirection: "column" }}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    gap: "0.5rem",
+                  }}
+                >
                   <IconButton
                     variant="outlined"
+                    color="primary"
                     sx={{
-                      backgroundColor: "grey.400",
                       ":hover": { backgroundColor: "grey.400" },
-                      borderRadius: "0.25rem 0.25rem 0 0",
-                      width: 24,
-                      height: 24,
+                      borderRadius: "100%",
+                      width: 32,
+                      height: 32,
                     }}
-                    onClick={() => handleIncrement(product.productId)}
+                    onClick={() => handleDecrement(product.productId)}
                   >
-                    <AddIcon />
+                    <RemoveIcon />
                   </IconButton>
                   <Box
                     sx={{
@@ -136,22 +176,27 @@ function CartItems() {
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
+                      borderRadius: "0.5rem",
+                      padding: "0 0.75rem",
                     }}
                   >
                     {product.quantity}
                   </Box>
                   <IconButton
-                    variant="outlined"
+                    variant="contained"
+                    color="primary"
+                    // size="small"
                     sx={{
-                      backgroundColor: "grey.400",
+                      // backgroundColor: "grey.400",
                       ":hover": { backgroundColor: "grey.400" },
-                      borderRadius: "0 0 0.25rem 0.25rem",
-                      width: 24,
-                      height: 24,
+                      // borderRadius: "0.25rem 0.25rem 0 0",
+                      borderRadius: "100%",
+                      width: 32,
+                      height: 32,
                     }}
-                    onClick={() => handleDecrement(product.productId)}
+                    onClick={() => handleIncrement(product.productId)}
                   >
-                    <RemoveIcon />
+                    <AddIcon />
                   </IconButton>
                 </Box>
               </Box>
@@ -181,6 +226,7 @@ function CartItems() {
           </DialogActions>
         </Dialong>
       </Grid>
+
       <Box>
         <CartBottomBar
           totalPrice={cartItems

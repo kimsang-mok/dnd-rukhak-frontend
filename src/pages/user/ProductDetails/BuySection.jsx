@@ -14,7 +14,7 @@ import { useContext, useEffect } from "react";
 import { CartContext } from "@/contexts/user/CartContext";
 
 const flex = { display: "flex" };
-const roundSm = { borderRadius: "0.25rem" };
+const roundSm = { borderRadius: "100%" };
 const bgGrey = { backgroundColor: "grey.300" };
 
 const StyledButton = styled(Button)(({ theme }) => ({
