@@ -153,6 +153,11 @@ function ProductForm({ mode, product, setEdit }) {
         resetAllState();
         navigate(-1);
       } catch (error) {
+        if (error && error.data && error.data.errors) {
+          alert(error?.data?.errors[0]?.msg);
+        } else {
+          alert(error?.data?.message);
+        }
         console.error(error);
       }
     } else {
@@ -166,6 +171,11 @@ function ProductForm({ mode, product, setEdit }) {
           setEdit(false);
         }
       } catch (error) {
+        if (error && error.data && error.data.errors) {
+          alert(error?.data?.errors[0]?.msg);
+        } else {
+          alert(error?.data?.message);
+        }
         console.error(error);
       }
     }
@@ -474,7 +484,7 @@ function ProductForm({ mode, product, setEdit }) {
                     <TextField
                       fullWidth
                       variant="standard"
-                      placeholder="Product dimension *"
+                      placeholder="Product dimension"
                       onChange={(event) => {
                         setDimension(event.target.value);
                       }}

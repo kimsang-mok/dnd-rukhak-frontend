@@ -165,15 +165,15 @@ function ImagesUpload({
     }
   }, [files]);
 
-  useEffect(() => {
-    return () => {
-      // Revoke the image URL to prevent memory leaks
-      files.forEach((file) => {
-        URL.revokeObjectURL(file.preview);
-        if (file.croppedImage) URL.revokeObjectURL(file.croppedImage);
-      });
-    };
-  }, []);
+  // useEffect(() => {
+  //   return () => {
+  //     // Revoke the image URL to prevent memory leaks
+  //     files.forEach((file) => {
+  //       URL.revokeObjectURL(file.preview);
+  //       if (file.croppedImage) URL.revokeObjectURL(file.croppedImage);
+  //     });
+  //   };
+  // }, []);
 
   const previews = files?.map(
     (file) =>

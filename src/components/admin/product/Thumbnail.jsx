@@ -102,15 +102,15 @@ function Thumbnail({
     }
   }
 
-  useEffect(() => {
-    return () => {
-      // Revoke the image URL to prevent memory leaks
-      if (file) {
-        URL.revokeObjectURL(file.preview);
-        if (file.croppedImage) URL.revokeObjectURL(file.croppedImage);
-      }
-    };
-  }, []);
+  // useEffect(() => {
+  //   return () => {
+  //     // Revoke the image URL to prevent memory leaks
+  //     if (file) {
+  //       URL.revokeObjectURL(file.preview);
+  //       if (file.croppedImage) URL.revokeObjectURL(file.croppedImage);
+  //     }
+  //   };
+  // }, []);
 
   useEffect(() => {
     if (attemptedSubmit) {

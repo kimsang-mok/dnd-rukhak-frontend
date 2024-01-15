@@ -67,14 +67,14 @@ function SellerSearch({
         <TextField
           {...params}
           variant="standard"
-          placeholder="Enter Seller ID *"
+          placeholder="Enter Seller name *"
           onChange={(event) => {
             setSellerName(event.target.value);
           }}
           // onBlur={() => setSellerId("")}
           error={attemptedSubmit && !validSellerId}
           helperText={
-            attemptedSubmit && !validSellerId ? "Seller ID is required" : ""
+            attemptedSubmit && !validSellerId ? "Seller name is required" : ""
           }
         />
       )}
