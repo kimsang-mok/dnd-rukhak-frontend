@@ -81,7 +81,7 @@ const CommentForm = ({ mentionUser, setMentionUser }) => {
   return (
     <Box
       sx={{
-        padding: "0 1rem",
+        padding: "1rem 0",
       }}
     >
       <>

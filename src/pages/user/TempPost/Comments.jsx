@@ -4,9 +4,9 @@ import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 import { useGetAllCommentsQuery } from "@/features/comment/commentSlice";
 
-const Comments = () => {
+const Comments = ({ postId }) => {
   const navigate = useNavigate();
-  const { data: comments } = useGetAllCommentsQuery("658a94fd4f4ed3928a7fd9ad");
+  const { data: comments } = useGetAllCommentsQuery(postId);
 
   return (
     <>

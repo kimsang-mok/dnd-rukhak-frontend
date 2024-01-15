@@ -5,16 +5,18 @@ import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import ForumHeader from "@/components/user/forum/ForumHeader";
 import ForumButtomBar from "@/components/user/forum/ForumButtomBar";
-import PostDetail from "./PostDetail";
 import useUser from "@/hooks/user/useUser";
+import PostCard from "@/components/user/forum/PostCard";
 
 const PostList = () => {
   const [page, setPage] = useState(1);
   const { user } = useUser();
-  const { data, isLoading, isError, error, isFetching } = useGetAllPostsQuery({
-    page,
-    skip: user ? false : true,
-  });
+  const { data, isLoading, isError, error, isFetching } = useGetAllPostsQuery(
+    {
+      page,
+    },
+    { skip: user ? false : true }
+  );
 
   const observer = useRef();
 
@@ -58,7 +60,7 @@ const PostList = () => {
             const isLastPost = data.data.length === index + 1;
             return (
               <div key={post._id}>
-                <PostDetail post={post} />
+                <PostCard post={post} />
                 {isLastPost && <span ref={lastPostElementRef} />}
               </div>
             );

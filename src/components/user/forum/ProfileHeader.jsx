@@ -3,29 +3,18 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import style from "@/styles/user/forum/profile.module.scss";
-import ArrowBack from "../ArrowBack";
 import { selectCurrentUserId } from "@/features/auth/authSlice";
 import { useSelector } from "react-redux";
+import ForumNav from "./ForumNav";
+
 const ProfileHeader = ({ user }) => {
   const userId = useSelector(selectCurrentUserId);
-  console.log("is meee!!",user);
-  
+  console.log("is meee!!", user);
+
   return (
     <>
-      <Box
-        height={"36px"}
-        alignItems={"center"}
-        display={"flex"}
-        padding={1}
-        sx={{
-          position: "sticky",
-          top: 0,
-          zIndex: 100,
-          backgroundColor: "white",
-        }}
-      >
-        <ArrowBack isSettingPage={"/forum"} />
-      </Box>
+      <ForumNav />
+
       <Card
         sx={{ backgroundColor: "#B2C8BA", width: "100%", height: "200px" }}
         className={style.header}

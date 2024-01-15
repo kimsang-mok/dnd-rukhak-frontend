@@ -15,12 +15,16 @@ const txtPrimary = { color: "text.primary" };
 const ForumNav = ({ returnPrevLink = true, label = false }) => {
   const navigate = useNavigate();
 
+  const navigateToPrevious = () => {
+    navigate(-1);
+  };
+
   return (
     <AppBar position="sticky" sx={{ backgroundColor: "background.default" }}>
       <Toolbar sx={{ justifyContent: "space-between" }}>
         <Box sx={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
           {returnPrevLink && (
-            <IconButton onClick={() => navigate(returnPrevLink)} edge="start">
+            <IconButton onClick={navigateToPrevious} edge="start">
               <ArrowBackIcon sx={txtPrimary} />
             </IconButton>
           )}

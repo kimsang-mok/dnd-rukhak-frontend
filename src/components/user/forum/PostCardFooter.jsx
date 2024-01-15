@@ -30,7 +30,7 @@ const PostCardFooter = ({
       </Box>
 
       <Box>
-        <IconButton onClick={() => navigate(`/${postId}/comments`)}>
+        <IconButton onClick={() => navigate(`/forum/${postId}/comments`)}>
           <ChatBubbleOutlineOutlinedIcon />
         </IconButton>
         <span>{commentCounts}</span>

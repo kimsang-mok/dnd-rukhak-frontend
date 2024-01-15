@@ -47,7 +47,7 @@ const CommentItem = ({ comment, children, setMentionUser }) => {
       return;
     }
 
-    navigate(comment?.parent ?? comment._id);
+    // navigate(comment?.parent ?? comment._id);
   };
 
   const handleClickDeleteComment = () => {

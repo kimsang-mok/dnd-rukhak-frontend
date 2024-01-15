@@ -3,7 +3,10 @@ import { apiSlice } from "@/utils/apiSlice";
 export const PostApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getAllPosts: builder.query({
-      query: (pageNumber) => `/community/?limit=5&page=${pageNumber}`,
+      query: ({ page }) => {
+        console.log(page);
+        return `/community/?limit=5&page=${page}`;
+      },
       transformResponse: (response) => {
         console.log(response);
         return {

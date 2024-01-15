@@ -6,24 +6,30 @@ import Box from "@mui/material/Box";
 import CommentForm from "../TempPost/CommentForm";
 import { useState } from "react";
 
-const CommentPage = () => {
+const CommentPage = ({ postId }) => {
   const [mentionUser, setMentionUser] = useState();
 
   const {
     commentId,
     // postId
   } = useParams();
-  const { data: comments } = useGetAllCommentsQuery("658a94fd4f4ed3928a7fd9ad");
+  const { data: comments } = useGetAllCommentsQuery(postId);
   const selectedComment = comments?.filter(
     (comment) => comment._id === commentId
   );
-
+  console.log(comments);
   return (
     <>
-      <Box sx={{ minHeight: "95vh" }}>
-        {selectedComment && (
+      <Box>
+        <CommentForm
+          mentionUser={mentionUser}
+          setMentionUser={setMentionUser}
+        />
+      </Box>
+      <Box>
+        {comments && (
           <Box>
-            {selectedComment?.map((comment) => (
+            {comments?.map((comment) => (
               <Box sx={{ padding: "0.5rem 1rem" }} key={comment._id}>
                 <CommentItem comment={comment} setMentionUser={setMentionUser}>
                   {comment.replies?.map((reply) => (
@@ -38,12 +44,6 @@ const CommentPage = () => {
             ))}
           </Box>
         )}
-      </Box>
-      <Box sx={{ position: "sticky", bottom: "1rem" }}>
-        <CommentForm
-          mentionUser={mentionUser}
-          setMentionUser={setMentionUser}
-        />
       </Box>
     </>
   );
