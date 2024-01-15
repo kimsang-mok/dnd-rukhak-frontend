@@ -8,6 +8,8 @@ import { selectCurrentUserId } from "@/features/auth/authSlice";
 import { useSelector } from "react-redux";
 const ProfileHeader = ({ user }) => {
   const userId = useSelector(selectCurrentUserId);
+  console.log("is meee!!",user);
+  
   return (
     <>
       <Box

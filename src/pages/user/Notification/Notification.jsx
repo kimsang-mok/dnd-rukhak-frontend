@@ -11,6 +11,7 @@ import { usePatchNotificationMutation } from "@/features/notification/getNotific
 
 function Notification() {
   const dispatch = useDispatch();
+  
   const notifications = useSelector(
     (state) => state.notifications.notifications
   );
@@ -30,9 +31,33 @@ function Notification() {
       dispatch(updateNotificationStatus({ id: notification.id, opened: true }));
     }
     handleNotificationUpdate(notification._id);
-    console.log("Notification clicked:", notification._id);
+    const user = {
+      email: "soeunsreynan1604@gmail.com",
+      firstName: "Srey",
+      id: "658932ab24b68217a1d30acb",
+      lastName: "Nan",
+      role: "seller",
+      storeName: "DnD Store",
+      __t: "Seller",
+      _id: "658932ab24b68217a1d30acb"
+    };
+    
+    // You can use the 'user' object in your application as needed
 
-    navigation.navigate(`/seller/order/${notification.entityId}`);
+    
+
+    console.log("Notification clicked:", notification._id);
+    if(notification.notificationType ==="Product order"){
+      navigation.navigate(`/seller/order/${notification.entityId}`);
+    }
+    else if (notification.notificationType ==="Follow"){
+      console.log("User before navigation:", user);
+      navigation.navigate("/forum/profile", { state: user });
+      
+    }
+    else if(notification.notificationType ==="Shop Activated"){
+      navigation.navigate(`/seller/dashboard`)
+    }
   };
 
   const getFormattedDate = (createdAt) => {
