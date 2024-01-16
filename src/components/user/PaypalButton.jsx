@@ -88,8 +88,6 @@ function PayPalButton({ orderItems }) {
         dispatch({ type: "CLEAR_CART" });
         navigate("/order-is-confirmed");
       }
-
-     
     });
   };
 

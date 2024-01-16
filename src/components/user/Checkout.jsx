@@ -27,11 +27,14 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogActions from "@mui/material/DialogActions";
 import useUser from "@/hooks/user/useUser";
 import { CartContext } from "@/contexts/user/CartContext";
+import { useLocation } from "react-router-dom";
+import Loading from "../admin/product/Loading";
 
-function Checkout({itemToOrder, fromCart}) {
+function Checkout({ itemToOrder, fromCart }) {
   const { curAddress, user } = useUser();
-  const {dispatch} = useContext(CartContext);
-  const [createOrder, {isLoading}] = useOrderMutation();
+  const location = useLocation();
+  const { dispatch } = useContext(CartContext);
+  const [createOrder, { isLoading }] = useOrderMutation();
 
   const navigate = useNavigate();
   const [paymentMethod, setPaymentMethod] = useState("");
@@ -45,29 +48,38 @@ function Checkout({itemToOrder, fromCart}) {
       itemPrice: item.price,
       quantity: item.quantity,
       title: item.title,
-    }))
+    }));
     const orderData = {
       userId: user?._id,
       cartItems: orderItems,
-      paymentMethod: "cash_on_delivery" ,
+      paymentMethod: "cash_on_delivery",
       isPaid: true,
       shipping: { address: curAddress?._id },
     };
     try {
-      navigate("/order-is-confirmed");
-       dispatch({ type: "CLEAR_CART" });
       const response = await createOrder(orderData).unwrap();
+      navigate("/order-is-confirmed");
       console.log("Order create successfully", response);
+      dispatch({ type: "CLEAR_CART" });
     } catch (error) {
-      console.log("Failed to create order", error)
+      navigate("/setting/create-address", {
+        state: { from: { pathname: location.pathname } },
+      });
+      console.log("Failed to create order", error);
     }
-  }
+  };
 
   const navToCheckout = () => {
     if (!paymentMethod) {
       setOpen(true);
     } else if (paymentMethod === "credit card") {
-      navigate("/paypal");
+      if (!curAddress?._id) {
+        navigate("/setting/create-address", {
+          state: { from: { pathname: location.pathname } },
+        });
+      } else {
+        navigate("/paypal");
+      }
     } else if (paymentMethod === "cash on delivery") {
       handleCreateOrder(); // Call the function to create the order
     }
@@ -80,7 +92,10 @@ function Checkout({itemToOrder, fromCart}) {
     setOpen(false);
   };
 
-  
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <Box sx={{ minHeight: "100vh" }}>
       <SecondaryTopNavigationBar returnPrevLink={-1} label="Checkout" />
@@ -100,7 +115,10 @@ function Checkout({itemToOrder, fromCart}) {
                 </Box>
                 <Box variant="h5"> Delivery Address</Box>
               </Box>
-              <Button sx={{ color: "text.primary" }} onClick={() => navigate("/address-list")} >
+              <Button
+                sx={{ color: "text.primary" }}
+                onClick={() => navigate("/address-list")}
+              >
                 <ModeEditOutlineOutlinedIcon />
               </Button>
             </Box>
@@ -119,7 +137,7 @@ function Checkout({itemToOrder, fromCart}) {
                   sx={{ padding: "0 !important", marginLeft: "1rem" }}
                 >
                   <Typography gutterBottom variant="body1">
-                  {curAddress?.addressLine}
+                    {curAddress?.addressLine}
                   </Typography>
                   <Typography>{curAddress?.phoneNumber}</Typography>
                 </CardContent>
@@ -160,7 +178,7 @@ function Checkout({itemToOrder, fromCart}) {
       </Grid>
       <Grid container spacing={3} padding={2}>
         <Grid item xs={12}>
-          <Card sx={{ padding: "0.5rem", marginBottom: "20%"}}>
+          <Card sx={{ padding: "0.5rem", marginBottom: "20%" }}>
             <Box gap={1} sx={{ display: "flex" }}>
               <Box>
                 <SellOutlinedIcon />
