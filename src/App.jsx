@@ -71,7 +71,6 @@ import Warpping from "./components/user/Warpping";
 
 ReactGA.initialize(import.meta.env.VITE_GA_MEASUREMENT_ID, {
   cookieDomain: "auto",
-  debug: true,
 });
 
 // check if the current route is an admin route
